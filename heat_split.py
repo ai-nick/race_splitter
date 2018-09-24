@@ -18,7 +18,7 @@ def test_for_range():
         histo += '   number of races = ' + str(numRaces)
         
         print(histo)
-
+'''
 def test_for_range_two():
     upper = 1000
     lower = 16
@@ -47,11 +47,11 @@ def split_races_two(g, p):
             else:
                 race_list.append(g)
         return race_list
-
+'''
 
 def get_splits_(g, p):
     nr = 0
-    if (p//g < g):
+    if (p//g < g/2):
         g = g//2
         if (p%g == 0):
             nr = p//g
@@ -70,17 +70,18 @@ def get_splits_(g, p):
                     '''
             nr = (p//g)+1
             race_size = g
-    if(nr == 0):
-        nr = (p//g) + 2
-        race_size = g
-    if (nr > 30):
-        nr = p//(g*2)
+        else:
+            nr = p//g
+            race_size = g
+    if (nr > 20):
+        if (p%(g*2) == 0):
+            nr = p//(g*2)
+        else:
+            nr = (p//(g*2)) + 1
         race_size = g*2
-    if (p > nr * (p//nr)):
-        nr += 1
     return nr, race_size
 
 #test_for_range_two()
-
+test_for_range()
 
 
