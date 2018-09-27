@@ -3,11 +3,13 @@
 
 
 def test_for_range():
-    upper = 1000
-    lower = 8
+    upper = 121
+    lower = 10
     gates = 16
     for parts in range(lower,upper):
         splits = get_splits_(gates, parts)
+        print(create_race_list(splits[0], splits[1], parts))
+        '''
         numRaces = splits[0]
         avg_size = splits[1]
         #last = splits[2]
@@ -18,6 +20,7 @@ def test_for_range():
         histo += '   number of races = ' + str(numRaces)
         
         print(histo)
+        '''
 '''
 def test_for_range_two():
     upper = 1000
@@ -53,51 +56,41 @@ def get_splits_(g, p):
     nr = 0
     if (p//g < g/2):
         g = g//2
-        if (p%g == 0):
-            nr = p//g
-            race_size = g
-        else:
-            nr = (p//g) + 1
-            race_size = g
+        nr = p//g
+        race_size = g
     else:
-        if (p%g > 0):
-            '''
-            mid = g//2
-            for x in range(mid, g):
-                if(p%x == 0):
-                    nr = p//x
-                    race_size = x
-                    '''
-            nr = (p//g)+1
-            race_size = g
-        else:
-            nr = p//g
-            race_size = g
+        nr = p//g
+        race_size = g
     if (nr > 20):
         if (p%(g*2) == 0):
             nr = p//(g*2)
         else:
-            nr = (p//(g*2)) + 1
+            nr = (p//(g*2))
         race_size = g*2
     return nr, race_size, p
 
 
 def create_race_list(numRaces, rSize, racers):
+    print(rSize)
     r_list = []
     leftovers = racers % rSize 
     for x in range(0, numRaces):
         r_list.append(rSize)
+    #print(r_list)
     if(leftovers > 0):
-        if(leftovers + numRaces < rSize):
+        if((numRaces - leftovers) < numRaces):
             extra = leftovers
-            for y in range(0, (rSize - leftovers)):
-                r_list[-(y+1)] -= 1 
+            '''
+            for y in range(0, (numRaces - leftovers)):
+                ix = 1+y
+                #print(ix)
+                r_list[-ix] -= 1 
                 extra += 1
+            '''
             r_list.append(extra)
         else:
-            r_limit = rSize - leftovers
-            for z in range(0, r_limit):
-
+            r_list.append(leftovers)
+    return r_list
 
 
 def split_heat_to_finals(race_list, np):
