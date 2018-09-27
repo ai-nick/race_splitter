@@ -3,12 +3,20 @@
 
 
 def test_for_range():
-    upper = 121
+    upper = 321
     lower = 10
-    gates = 16
-    for parts in range(lower,upper):
-        splits = get_splits_(gates, parts)
-        print(create_race_list(splits[0], splits[1], parts))
+    gates = 8
+    with open("%d_gate_heats.csv" %(gates), 'w') as f:
+        for parts in range(lower,upper):
+            firstLine = "%d racers \n" %(parts)
+            f.write(firstLine)
+            splits = get_splits_(gates, parts)
+            mains = create_race_list(splits[0], splits[1], parts)
+            print(mains)
+            for i in mains:
+                nextLine = "%d ," %(i)
+                f.write(nextLine)
+            f.write("\n")
         '''
         numRaces = splits[0]
         avg_size = splits[1]
@@ -21,36 +29,7 @@ def test_for_range():
         
         print(histo)
         '''
-'''
-def test_for_range_two():
-    upper = 1000
-    lower = 16
-    gates = 16
-    for ix in range(lower,upper):
-        race_list = split_races_two(gates, ix)
-        print(race_list)
 
-def split_races_two(g, p):
-    nr = 0
-    race_list = []
-    if(p%g == 0):
-        nr = p//g
-        for x in range(0, nr):
-            race_list.append(g)
-        return race_list
-    else:
-        nr = p//g + 1
-        short_races = g - (p%g)
-        size_correct = 1
-        if(short_races > nr):
-            size_correct 
-        for x in range(0, nr):
-            if (x < short_races):
-                race_list.append(g-1)
-            else:
-                race_list.append(g)
-        return race_list
-'''
 
 def get_splits_(g, p):
     nr = 0
@@ -80,13 +59,14 @@ def create_race_list(numRaces, rSize, racers):
     if(leftovers > 0):
         if((numRaces - leftovers) < numRaces):
             extra = leftovers
-            '''
-            for y in range(0, (numRaces - leftovers)):
-                ix = 1+y
+            ix = 0
+            for y in range(0, (rSize - leftovers)):
+                ix += 1
+                if(ix > len(r_list)):
+                    ix = 1
                 #print(ix)
                 r_list[-ix] -= 1 
                 extra += 1
-            '''
             r_list.append(extra)
         else:
             r_list.append(leftovers)
