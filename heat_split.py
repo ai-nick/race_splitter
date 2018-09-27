@@ -79,7 +79,29 @@ def get_splits_(g, p):
         else:
             nr = (p//(g*2)) + 1
         race_size = g*2
-    return nr, race_size
+    return nr, race_size, p
+
+
+def create_race_list(numRaces, rSize, racers):
+    r_list = []
+    leftovers = racers % rSize 
+    for x in range(0, numRaces):
+        r_list.append(rSize)
+    if(leftovers > 0):
+        if(leftovers + numRaces < rSize):
+            extra = leftovers
+            for y in range(0, (rSize - leftovers)):
+                r_list[-(y+1)] -= 1 
+                extra += 1
+            r_list.append(extra)
+        else:
+            r_limit = rSize - leftovers
+            for z in range(0, r_limit):
+
+
+
+def split_heat_to_finals(race_list, np):
+    return 
 
 #test_for_range_two()
 test_for_range()
