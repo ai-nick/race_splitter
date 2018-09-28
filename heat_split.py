@@ -11,9 +11,10 @@ def test_for_range():
             firstLine = "%d racers \n" %(parts)
             f.write(firstLine)
             splits = get_splits_(gates, parts)
-            mains = create_race_list(splits[0], splits[1], parts)
+            heats = create_race_list(splits[0], splits[1], parts)
             print(mains)
-            for i in mains:
+            for i in heats:
+                main = 
                 nextLine = "%d ," %(i)
                 f.write(nextLine)
             f.write("\n")
@@ -74,7 +75,32 @@ def create_race_list(numRaces, rSize, racers):
 
 
 def split_heat_to_finals(race_list, np):
-    return 
+    if (np > 40):
+        return split_heats_over_40(race_list, np)
+    else:
+        return split_heats_under(race_list, np)
+
+
+def split_heats_under(race_list, np):
+    mains = []
+    mains[0] = len(race_list)
+    sub_main_size = (np - len(race_list))/(len(race_list) - 1)
+    left_overs = sub_main_size + ((np-len(race_list)) %(len(race_list) - 1)
+    for x in range(1, len(race_list)-1):
+        mains[x] = sub_main_size
+    mains[-1] += leftovers
+
+def split_heats_over(race_list, np):
+    mains = []
+    mains[0] = len(race_list)
+    less_mains = len(race_list) - (len(race_list)/3)
+    main_size = np/less_mains
+    for x in range(1, less_mains):
+        mains[x] = main_size
+    mains[-1] += np%less_mains
+
+
+
 
 #test_for_range_two()
 test_for_range()
