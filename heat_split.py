@@ -1,6 +1,4 @@
-import math
-
-
+from math import factorial
 
 def test_for_range():
     upper = 321
@@ -103,7 +101,6 @@ def split_heats_over(race_list, np):
     return mains
 
 
-def find_subcubes(search_cube_dimension, subcube_dimension):
-    #we will assume its been scaled into a unit hypercube
-    diff = search_cube_dimension - subcube_dimension
-    num_subs = (2**diff)*()
+
+
+
