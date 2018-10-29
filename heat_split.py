@@ -1,21 +1,21 @@
-
+import math
 
 
 
 def test_for_range():
     upper = 321
     lower = 10
-    gates = 8
-    with open("%d_gate_mains.csv" %(gates), 'w') as f:
+    gates = 16
+    with open("%d_gate_heats.csv" %(gates), 'w') as f:
         for parts in range(lower,upper):
             firstLine = "%d racers \n" %(parts)
             f.write(firstLine)
             splits = get_splits_(gates, parts)
             heats = create_race_list(splits[0], splits[1], parts)
-            mains = split_heat_to_finals(heats, parts)
+            #mains = split_heat_to_finals(heats, parts)
             print(heats)
-            print(mains)
-            for i in mains:
+            #print(mains)
+            for i in heats:
                 nextLine = "%d ," %(i)
                 f.write(nextLine)
             f.write("\n")
@@ -37,7 +37,7 @@ def test_for_range():
 def get_splits_(g, p):
     nr = 0
     if (p//g < g/2):
-        g = g- (g//3)
+        g = g - (g//4)
         nr = p//g
         race_size = g
     else:
@@ -60,19 +60,17 @@ def create_race_list(numRaces, rSize, racers):
         r_list.append(rSize)
     #print(r_list)
     if(leftovers > 0):
-        if((numRaces - leftovers) < numRaces):
-            extra = leftovers
-            ix = 0
-            for y in range(0, (rSize - leftovers)):
-                ix += 1
-                if(ix > len(r_list)):
-                    ix = 1
-                #print(ix)
+        extra = leftovers
+        ix = 0
+        for y in range(0, (rSize - leftovers)):
+            ix += 1
+            if(ix  < len(r_list)):
                 r_list[-ix] -= 1 
                 extra += 1
-            r_list.append(extra)
-        else:
-            r_list.append(leftovers)
+            else:
+                ix = 0
+            #print(ix)
+        r_list.append(extra)
     return r_list
 
 
@@ -105,8 +103,7 @@ def split_heats_over(race_list, np):
     return mains
 
 
-
-#test_for_range_two()
-test_for_range()
-
-
+def find_subcubes(search_cube_dimension, subcube_dimension):
+    #we will assume its been scaled into a unit hypercube
+    diff = search_cube_dimension - subcube_dimension
+    num_subs = (2**diff)*()
